@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="/public/img/shortcut_16.ico" type="image/x-icon" />
+  <title>odd</title>
+  <!-- Bootstrap core CSS -->
+  <link href="/public/lib/bootstrap-3.3.7/dist/css/bootstrap.css" rel="stylesheet">
+  <link href="/public/lib/bootstrap拓展/css/bootstrap.offcanvas.css" rel="stylesheet">
+  <link href="/public/lib/animate/animate.css" rel="stylesheet"><!-- 动画 -->
+  <link href="/public/css/index.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- 背景图片 -->
+  <div class="top body-offcanvas">
+    <div class="background">
+      <!-- 导航条 -->
+      <nav class="navbar navbar-default-dh">
+        <div class="container">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle offcanvas-toggle" 
+              data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas-2">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+              <img alt="Brand" src="/public/img/new1.png" style="z-index: 1;">
+            </a>
+          </div>
+          <nav class="navbar-offcanvas navbar-offcanvas-right navbar-offcanvas-touch navbar-offcanvas-fade" 
+          role="navigation" id="js-bootstrap-offcanvas-2">
+              <!-- <div class="navbar-header">
+                <a class="navbar-brand" href="../html/home.html">
+                  <img alt="Brand" src="../img/gao10.png" style="z-index: 1;">
+                </a>
+              </div> -->
+              <div>
+                <ul class="nav navbar-nav navbar-right">
+                  <li><a href="/">首页</a></li>
+                  <li><a href="#">归档</a></li>
+                  <li><a href="#">关于</a></li>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                      aria-expanded="false">账号<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">个人信息</a></li>
+                      <li><a href="#">修改密码</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="#">登出</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+          </nav>
+        </div>
+      </nav><!-- 导航条 -->
+      <div class="title">
+        <h1 class="animated bounceInDown delay-1s" style="font-size:60px">oddddddd</h1>
+        <h2 class="animated bounceInDown delay-1s">odd的Blog</h1>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 upload" style="text-align: center;">
+        <div class="form-group">
+          <label class="label-up">请选择要上传的文件</label>
+          <div class="col-xs-4 col-xs-offset-4" style="float:none;">
+            <button type="button" class="btn btn-block btn-up btn-upFile">选择文件</button>
+            <input type="file" class='upFile hide'>
+          </div>
+          <p class="help-block fileTips" style="color: #eea2a4;">目前只支持.md文件</p>
+        </div>
+        <div class="form-group">
+          <label class="label-up">请选择封面图片</label>
+          <div class="col-xs-4 col-xs-offset-4" style="float:none;">
+              <button type="button" class="btn btn-block btn-up btn-upImg">选择图片</button>
+              <input type="file" class='upImg hide'>
+          </div>
+          <p class="help-block imgTips" style="color: #eea2a4;">支持jpg/png文件</p>
+         </div>
+        <div class="form-group">
+          <label class="label-up">标题</label>
+          <div style="text-align: center">
+            <input type="text" class="form-control" placeholder="标题">
+          </div>
+        </div>
+        <button id="submit" class="btn btn-up">Submit</button>       
+      </div><!-- /.upload -->
+
+      <div class="col-md-3 col-md-offset-1 blog-sidebar">
+        <div class="sidebar-module sidebar-module-inset">
+          <h4>About</h4>
+          <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum.
+            Aenean lacinia bibendum nulla sed consectetur.</p>
+        </div>
+        <div class="sidebar-module sidebar-module-inset">
+            <h4>About</h4>
+            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum.
+              Aenean lacinia bibendum nulla sed consectetur.</p>
+          </div>
+        <div class="sidebar-module">
+          <h4>Elsewhere</h4>
+          <ol class="list-unstyled">
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Facebook</a></li>
+          </ol>
+        </div>
+        <div class="sidebar-module">
+            <h4>Elsewhere</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">GitHub</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">Facebook</a></li>
+            </ol>
+          </div>
+          <div class="sidebar-module">
+              <h4>Elsewhere</h4>
+              <ol class="list-unstyled">
+                <li><a href="#">GitHub</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Facebook</a></li>
+              </ol>
+            </div>
+            <div class="sidebar-module">
+                <h4>Elsewhere</h4>
+                <ol class="list-unstyled">
+                  <li><a href="#">GitHub</a></li>
+                  <li><a href="#">Twitter</a></li>
+                  <li><a href="#">Facebook</a></li>
+                </ol>
+              </div>
+      </div><!-- /.blog-sidebar -->
+
+    </div><!-- /.row -->
+
+  </div><!-- /.container -->
+
+  <footer class="footer">
+    <div class="container">
+      <div class="col-md-6 col-md-offset-3 content-footer">
+          <a><img src="/public/img/shortcut_48.ico"></a>
+          <p>COPYRIGHT 2019 <span>DH</span>. ALL RIGHTS RESERVED.</p>
+          <p>2019.3.5</p>        
+      </div>
+    </div>
+  </footer>
+  <!-- 外部JS引用 -->
+  <script src="/public/lib/jQuery/jquery-3.3.1.min.js"></script>
+  <script src="/public/lib/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+  <script src="/public/lib/bootstrap拓展/js/bootstrap.offcanvas.min.js"></script>
+  <script src="/public/lib/marked/marked.js"></script>
+  <script src="/public/lib/md5/md5.min.js"></script>
+  <script src="/public/js/main.js"></script>
+  <script>
+    var flag = 0;
+    $('.btn-upFile').click(function(){
+        $('.upFile').click();
+    });
+    $('.btn-upImg').click(function(){
+        $('.upImg').click();
+    });
+    $('.upFile').change(function(){
+      var file = this.files[0];
+      //获取文件名称
+      var fileName = file.name + '';			
+      //获取文件大小(字节Byte)
+      var fileSize= file.size;
+      if(fileName.split('.').pop()=== 'md') {
+        $('.fileTips').html(fileName + '(字节数:' + file.size + 'Byte)');
+      } else {
+        $('.fileTips').html('读取错误，请选择.md的文件');
+      }
+    })
+    $('.upImg').change(function(){
+      var file = this.files[0];
+      //获取文件名称
+      var fileName = file.name + '';
+      console.log(fileName.split('.').pop());			
+      //获取文件大小(字节Byte)
+      var fileSize= file.size;
+      console.log(fileSize);
+      if(fileName.split('.').pop() === 'jpg' || fileName.split('.').pop() === 'png') {
+        $('.imgTips').html(fileName + '(字节数:' + file.size + 'Byte)');
+      } else {
+        $('.imgTips').html('读取错误，请选择jpg/png的文件');
+      }
+    })
+  </script>
+</body>
+
+</html>

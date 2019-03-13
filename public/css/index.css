@@ -1,0 +1,496 @@
+/*好看的颜色  石绿#57c3c2 牡丹粉红#eea2a4 风信紫#c8adc4 豆沙#481e1c 玫瑰灰 茶花红#ee3f4d*/
+/*
+    bootstrap更改
+*/
+/* 导航栏左右预留调整 */
+.navbar-default-dh {
+  
+}
+.navbar-default-dh .navbar-brand {
+  color: #f8f4ed;
+}
+.navbar-default-dh .navbar-brand:hover,
+.navbar-default-dh .navbar-brand:focus {
+  color: #f8f4ed;
+  background-color: transparent;
+}
+.navbar-default-dh .navbar-text {
+  color: #f8f4ed;
+}
+.navbar-default-dh .navbar-nav > li > a {
+  color: #f8f4ed;
+  font-size: 20px;
+}
+.navbar-default-dh .navbar-nav > li > a:focus{/*改了聚焦还是粉色*/
+  color: #f8f4ed;
+  background-color: transparent;
+}
+.navbar-default-dh .navbar-nav > li > a:hover
+ {
+  color:#eea2a4;;
+  background-color: transparent;
+}
+.navbar-default-dh .navbar-nav > .active > a {
+  color: #f8f4ed;
+  background-color: transparent;
+}
+.navbar-default-dh .navbar-nav > .active > a:hover,
+.navbar-default-dh .navbar-nav > .active > a:focus {
+  color: #eea2a4;
+  /* background-color: #e7e7e7; *//* 链接选中方块背景颜色 */
+}
+.navbar-default-dh .navbar-nav > .disabled > a,
+.navbar-default-dh .navbar-nav > .disabled > a:hover,
+.navbar-default-dh .navbar-nav > .disabled > a:focus {
+  color: #f8f4ed;
+  background-color: transparent;
+}
+.navbar-default-dh .navbar-toggle {/* 汉堡菜单边框颜色 */
+  border-color: #f8f4ed;
+}
+.navbar-default-dh .navbar-toggle:hover,
+.navbar-default-dh .navbar-toggle:focus {
+  border-color: #fff;
+}
+.navbar-default-dh .navbar-toggle .icon-bar {
+  background-color: #f8f4ed;/*汉堡菜单三行*/
+}
+.navbar-default-dh .navbar-collapse,
+.navbar-default-dh .navbar-form {
+  border-color: #e7e7e7;
+}
+.navbar-default-dh .navbar-nav > .open > a,
+.navbar-default-dh .navbar-nav > .open > a:hover,
+.navbar-default-dh .navbar-nav > .open > a:focus {
+  color: #eea2a4;
+  /* background-color: #e7e7e7; */
+}
+@media (max-width: 767px) {
+  .navbar-default-dh .navbar-nav .open .dropdown-menu > li > a {
+    color: #f8f4ed;
+    padding: 5px 15px 5px 30px;
+    font-size: 16px;
+  }
+  .navbar-default-dh .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default-dh .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #f8f4ed;
+    background-color: transparent;
+  }
+  .navbar-default-dh .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default-dh .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default-dh .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #555;
+    background-color: #f00;
+  }
+  .navbar-default-dh .navbar-nav .open .dropdown-menu > .disabled > a,
+  .navbar-default-dh .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-default-dh .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+    color: #ccc;
+    background-color: transparent;
+  }
+}
+.navbar-default-dh .navbar-link {
+  color: #777;
+}
+.navbar-default-dh .navbar-link:hover {
+  color: #333;
+}
+.navbar-default-dh .btn-link {
+  color: #777;
+}
+.navbar-default-dh .btn-link:hover,
+.navbar-default-dh .btn-link:focus {
+  color: #333;
+}
+.navbar-default-dh .btn-link[disabled]:hover,
+fieldset[disabled] .navbar-default-dh .btn-link:hover,
+.navbar-default-dh .btn-link[disabled]:focus,
+fieldset[disabled] .navbar-default-dh .btn-link:focus {
+  color: #ccc;
+}
+/* 导航栏 */
+.navbar {
+  margin-bottom: 30px;
+}
+.navbar-nav {
+  margin: 0px;
+}
+.container {
+  padding-left: 50px;
+  padding-right: 50px; 
+}
+/* 导航栏LOGO样式 */
+.navbar-brand {
+  padding: 0px 15px;
+  height: 85px;
+}
+/* 导航栏点击展开菜单格式 */
+.dropdown-menu {
+  min-width: 0px;
+}
+/* 导航栏文字栏 */
+.navbar-nav > li > a {
+  padding-top: 35px;
+  padding-bottom: 5px;
+}
+/* 汉堡菜单按钮 */
+.navbar-toggle {
+  margin-top: 30px;
+  margin-right: 15px;
+}
+.dropdown-menu {
+  background-color: #343434;
+}
+.dropdown-menu > li > a {
+  color: #f8f4ed;
+  padding: 5px 15px 5px 22px;
+  font-size: 16px;
+  line-height: 20px;
+}
+.dropdown-menu > li > a:hover, 
+.dropdown-menu > li > a:focus {
+  color: #f8f4ed;
+  text-decoration: none;
+  background-color: #343434;
+}
+/*
+    公共样式
+*/
+html {
+  height: 100%;
+}
+body {
+  font-size: 16px;
+  height: 100%;
+}
+.no_hyperlink {
+  color: #000;
+  text-decoration: none;
+}
+/*字体图标设置 字体图标就是制作一种字体但都是图标 优点：容量小 矢量 可以改变颜色大小*/
+@font-face{
+  font-family: 'iconfont';/*自己定义一个名为 iconfont 的字体*/
+  src:url('../font/iconfont/iconfont.eot');
+  src: url('../font/iconfont/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('../font/iconfont/iconfont.woff') format('woff'),
+  url('../font/iconfont/iconfont.ttf') format('truetype'),
+  url('../font/iconfont/iconfont.svg') format('svg');
+}
+@font-face{
+  font-family: '微软雅黑Light';/*自己定义一个名为 iconfont 的字体*/
+  src: url('../font/微软雅黑Light/Microsoft-YaHei-UI-Light.ttf') format('truetype');
+}
+/******************************************首页**********************************************/
+/*
+    头部区域
+*/
+.top {
+  height: 300px;
+  position: relative;
+  margin-bottom: 20px;
+}
+.background { 
+  position: relative;
+  height:300px; 
+  width:100%; 
+  /* background-image:url("  https://www.qdtalk.com/wp-content/uploads/2019/02/biegun-wschodni-18125-unsplash.jpg"); *//*参考图片 背景图片要足够大*/
+  background-image:url("../img/background.png"); 
+  background-position: center center; 
+  background-repeat: no-repeat; 
+  /*background-attachment:fixed;*//*当滚动滚轮时可以使背景图像固定不动*/
+  background-size: cover; 
+  -webkit-background-size: cover;/* 兼容Webkit内核浏览器如Chrome和Safari */ 
+  -o-background-size: cover;/* 兼容Opera */ 
+}
+.title {
+  position: absolute;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  text-shadow: 2px 2px 2px #555;
+}
+/* 
+    首页内同区域 
+*/
+.home-content-left-frame {
+  border: 1px solid #ccc;
+  height: 180px;
+  width: 100%;
+  margin-bottom: 20px;
+  box-shadow: 0px 1px 2px #ccc;/*加阴影*/
+}
+.home-content-left-picture {
+  position: relative;
+  float: left;
+  width: 250px;
+  height: 140px;
+  overflow: hidden;
+  margin: 20px 10px 20px 10px;
+}
+.home-content-left-picture img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  margin: 0px;
+  border: 0;
+  padding: 0;
+}
+.home-content-left-title {
+  margin-left: 260px;
+  padding: 35px 0px 10px 0px;
+  font-size: 25px;
+  /*color: #481e1c;豆沙*/
+  color: #000;
+  height: 120px;
+  width: 64%;
+}
+@media screen and (max-width: 1200px) {
+  .home-content-left-title {
+    width: 54%;
+  }
+}
+@media screen and (max-width: 992px) {
+  .home-content-left-title {
+    width: 60%;
+  }
+}
+.home-content-left-title a {
+  color: #000;
+  text-decoration: none;
+}
+.home-content-left-title a span{
+  padding-top: 2px; 
+}
+.home-content-left-message {
+  margin-left: 260px;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #aaa;
+}
+.home-content-left-message i {
+  margin-left: 8px;
+  margin-right: 3px;
+}
+/* 移动端页面*/
+@media screen and (max-width: 768px) {
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .home-content-left-frame {
+    display: block;
+    border: 1px solid #ccc;
+    height: auto;
+    width: auto;
+    margin-bottom: 10px;
+    box-shadow: 0px 1px 2px #ccc;/*加阴影*/
+  }
+  .home-content-left-picture {
+    position: relative;
+    float: none;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    margin: 0px;
+    border-bottom: 1px solid #ccc;
+
+  }
+  .home-content-left-picture img {
+    max-width: 100%;
+    width: 750px;
+    height: auto;
+    margin: 0px;
+    border: 0;
+    padding: 0;
+  }
+  .home-content-left-title {
+    margin-left: 0px;
+    padding: 10px 5px;
+    font-size: 17px;
+    color: #000;
+    height: auto;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+  }
+  .home-content-left-title img {
+    display: none;
+  }
+  .home-content-left-message {  
+    margin: 10px 0px;
+    font-size: 14px;
+    color: #aaa;
+  }
+  .home-content-left-message i {
+    margin-left: 8px;
+    margin-right: 3px;
+  }
+}
+/* 屏幕小于992时 右边消失 */
+@media screen and (max-width: 992px) {
+  .blog-sidebar {
+    display: none;
+  }
+}
+/*
+  底部
+*/
+.footer{
+  background-color: #4b2e2b;/*玫瑰灰*/
+  color: #eee;
+}
+.content-footer {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 8px;
+  font-family: "微软雅黑Light"
+}
+.content-footer img {
+  margin-bottom: 10px;
+}
+
+
+/******************************************登录页**********************************************/
+.body-index {  
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -ms-flex-align: center;
+  -ms-flex-pack: center;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+.form-signin {
+  height: 450px;
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin h1 {
+  font-size: 30px;
+  margin-top: 0px;
+}
+.form-signin img {
+  max-height: 125px;
+}
+.form-signin .form-control {
+  margin-bottom: 10px;
+}
+.form-control:focus {
+  border-color: #eea2a4;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(238, 162, 165, 0.6);
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(238, 162, 164, 0.6);
+}
+.form-signin .remember {
+  position: relative;
+  display: block;
+  margin-bottom: 5px;
+  float: left;
+  text-align: left;
+  font-family: "微软雅黑";
+  font-size: 15px;
+} 
+.form-signin .remember label {
+  font-weight: normal; 
+}
+.form-signin .register {
+  position: relative;
+  display: block;
+  margin-bottom: 5px;
+  float: right;
+  text-align: right;
+  font-family: "微软雅黑";
+  height: 27px;
+}
+.form-signin .register a {
+  color: #eea2a4;
+  font-size: 17px;
+}
+/* .form-signin .register a:focus,
+.form-signin .register a:active,
+.form-signin .register a:hover {
+  color: #eea2a4;
+  text-decoration: none;
+} */
+.btn:hover,
+.btn:focus,
+.btn.focus {
+  color: #fff;
+  text-decoration: none;
+}
+.btn:active,
+.btn.active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, .825);
+          box-shadow: inset 0 0px 5px rgba(0, 0, 0, 0.25);
+}
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+  outline: 0px auto #57c3c2;
+  outline-offset: -2px;
+}
+.btn-color {
+  color: #fafafa;
+  background-color: #57c3c2;
+  border-color: #57c3c2;
+  font-size: 22px;
+}
+.form-signin p {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #777;
+  font-family: "微软雅黑" 
+}
+.userNameerr::-webkit-input-placeholder{
+  color: #ee3f4d;
+}
+.passWorderr::-webkit-input-placeholder{
+  color: #ee3f4d;
+}
+/***************************************************上传页面***********************************************/
+.upload {
+  margin-top: 50px;
+}
+.hide {
+  display: none;
+}
+.upFile {
+  padding: 4px 10px;
+    height: 20px;
+    line-height: 20px;
+    border: 1px solid #999;
+    text-decoration: none;
+    color: #666;
+}
+.upImg {
+  padding: 4px 10px;
+    height: 20px;
+    line-height: 20px;
+    border: 1px solid #999;
+    text-decoration: none;
+    color: #666;
+}
+.btn-up {
+  color: #fff;
+  background-color: #57c3c2;
+  border-color: #57c3c2;
+}
+.upload .label-up {
+  margin: 15px 0;
+  font-weight: normal;
+  font-size: 24px;
+}
+.help-block {
+  margin-top: 10px;
+}

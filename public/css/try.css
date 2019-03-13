@@ -1,0 +1,33 @@
+.home-content-left-frame{
+  border: 1px solid #ccc;
+  height: 200px;
+  width: 100%;
+  margin-bottom: 10px;
+  box-shadow: 0px 1px 2px #ccc;/*加阴影*/
+}
+.home-content-left-picture{
+  position: relative;
+  float: left;
+  width: 270px;
+  height: 160px;
+  overflow: hidden;
+  margin: 20px 10px 20px 10px;
+}
+.home-content-left-title{
+  margin-left: 280px;
+  padding: 45px 0px 10px 0px;
+  font-size: 26px;
+  color: #481e1c;/*豆沙*/
+  height: 120px;
+  width: 56%;
+}
+.home-content-left-message{
+  margin-left: 280px;
+  margin-top: 30px;
+  font-size: 14px;
+  color: #c8adc4;/*风信紫*/
+}
+.home-content-left-message i{
+  margin-left: 8px;
+  margin-right: 3px;
+}

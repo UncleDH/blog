@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="/public/img/shortcut_16.ico" type="image/x-icon" />
+  <title>odd</title>
+  <!-- Bootstrap core CSS -->
+  <link href="/public/lib/bootstrap-3.3.7/dist/css/bootstrap.css" rel="stylesheet">
+  <link href="/public/lib/bootstrap拓展/css/bootstrap.offcanvas.css" rel="stylesheet">
+  <link href="/public/lib/animate/animate.css" rel="stylesheet"><!-- 动画 -->
+  <link href="/public/css/index.css" rel="stylesheet">
+</head>
+
+<body class="text-center body-index">
+  <form class="form-signin" action="register-user" method="POST">
+    <img src="/public/img/矢量LOGO.svg" alt="">  
+    <h1>欢迎来到odd的世界</h1>
+    <input type="text" class="form-control" placeholder="用户名" name="userName" required autofocus>
+    <input type="password" class="form-control" placeholder="密码" name="passWord" required>
+    <div class="remember">
+      <label>
+        <input type="checkbox" value="rememberMe"> 记住我
+      </label>
+    </div>
+    <div class="register">
+      <a href="/index">登录</a>
+    </div>
+    <button class="btn btn-xs btn-color btn-block" type="submit">注册</button>
+    <p>Copyright 2019 DH.</p>
+  </form> 
+  <!-- 外部JS引用 -->
+  <script src="/public/lib/jQuery/jquery-3.3.1.min.js"></script>
+  <script src="/public/lib/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+  <script src="/public/lib/bootstrap拓展/js/bootstrap.offcanvas.min.js"></script>
+  <script src="/public/lib/md5/md5.min.js"></script>
+  <script src="/public/js/main.js"></script>
+  <script>
+    //处理用户注册未填写信息与命名重复的情况
+    $('form').on('submit', function(event){
+      event.preventDefault();//方式form直接跳转
+      if($('input[name="userName"]').val() === '') {
+        $('input[name="userName"]').attr('placeholder', '请输入用户名');
+        $('input[name="userName"]').addClass('userNameerr');
+      } else if ($('input[name="passWord"]').val() === '') {
+        $('input[name="passWord"]').attr('placeholder', '请输入密码');
+        $('input[name="passWord"]').addClass('passWorderr');
+      } else {
+        $.post('register-user', {userName: $('input[name="userName"]').val(), passWord: md5($('input[name="passWord"]').val())},function(data){
+          if(data === '0'){
+            //清空框里的数据
+            $('input[name="userName"]').val('');
+            $('input[name="passWord"]').val('');
+            $('input[name="userName"]').attr('placeholder', '该用户已存在');
+            $('input[name="userName"]').addClass('userNameerr');
+          } else if(data === '1') {
+            setCookie('userName', $('input[name="userName"]').val(), cookieTime);
+            window.location.href = '/';
+          }
+        })
+      }
+    })
+    $('input[name="userName"]').focus(function(){
+      $('input[name="userName"]').removeClass('userNameerr');
+      $('input[name="userName"]').attr('placeholder', '用户名');
+    })
+    $('input[name="passWord"]').focus(function(){
+      $('input[name="passWord"]').removeClass('passWorderr');
+      $('input[name="passWord"]').attr('placeholder', '密码');
+    })
+  </script>
+</body>
+</html>
