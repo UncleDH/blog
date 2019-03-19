@@ -29,7 +29,7 @@
       </label>
     </div>
     <div class="register">
-      <a href="/index">登录</a>
+      <a href="/">登录</a>
     </div>
     <button class="btn btn-xs btn-color btn-block" type="submit">注册</button>
     <p>Copyright 2019 DH.</p>
@@ -60,7 +60,7 @@
             $('input[name="userName"]').addClass('userNameerr');
           } else if(data === '1') {
             setCookie('userName', $('input[name="userName"]').val(), cookieTime);
-            window.location.href = '/';
+            window.location.href = '/home';
           }
         })
       }

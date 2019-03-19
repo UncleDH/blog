@@ -25,18 +25,18 @@
       <nav class="navbar navbar-default-dh">
         <div class="container">
           <div class="navbar-header">
-              <button type="button" class="navbar-toggle offcanvas-toggle" 
+              <button type="button" class="navbar-toggle offcanvas-toggle"
               data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas-2">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="/home">
               <img alt="Brand" src="/public/img/new1.png" style="z-index: 1;">
             </a>
           </div>
-          <nav class="navbar-offcanvas navbar-offcanvas-right navbar-offcanvas-touch navbar-offcanvas-fade" 
+          <nav class="navbar-offcanvas navbar-offcanvas-right navbar-offcanvas-touch navbar-offcanvas-fade"
           role="navigation" id="js-bootstrap-offcanvas-2">
               <!-- <div class="navbar-header">
                 <a class="navbar-brand" href="../html/home.html">
@@ -45,7 +45,7 @@
               </div> -->
               <div>
                 <ul class="nav navbar-nav navbar-right">
-                  <li><a href="/">首页</a></li>
+                  <li><a href="/home">首页</a></li>
                   <li><a href="#">归档</a></li>
                   <li><a href="#">关于</a></li>
                   <li class="dropdown">
@@ -55,7 +55,7 @@
                       <li><a href="#">个人信息</a></li>
                       <li><a href="#">修改密码</a></li>
                       <li role="separator" class="divider"></li>
-                      <li><a href="" class='logout'>登出</a></li>
+                      <li><a href="/" class='logout'>登出</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -69,7 +69,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="container">
     <!-- <div class="blog-header">
       <h1 class="blog-title">The Bootstrap Blog</h1>
@@ -176,7 +176,7 @@
       <div class="col-md-6 col-md-offset-3 content-footer">
           <a><img src="/public/img/shortcut_48.ico"></a>
           <p>COPYRIGHT 2019 <span>DH</span>. ALL RIGHTS RESERVED.</p>
-          <p>2019.3.5</p>        
+          <p>2019.3.5</p>
       </div>
     </div>
   </footer>
@@ -198,13 +198,13 @@
           var title = data[i].filename.slice(0, -3); //去掉.md后缀
           $('.blog-main').append(`<div class="home-content-left-frame">
           <div class="home-content-left-picture">
-            <a href="/content/` + title + `">
-              <img src="/public/img/测试/` + (i+1) +`.jpg">
+            <a href="/content/${title}">
+              <img src="/public/img/测试/${i+1}.jpg">
             </a>
           </div>
           <div class="home-content-left-title">
             <img src="/public/img/shortcut_32.ico">
-            <a href="/content/` + title + `" class="no_hyperlink"><span>` + title + `</span></a>
+            <a href="/content/${title}" class="no_hyperlink"><span>${title}</span></a>
           </div>
           <div class="home-content-left-message">
             <i class="glyphicon glyphicon-user" aria-hidden="true"></i>
@@ -221,10 +221,10 @@
       }
     })
     //登出页面
-    $('.logout').click(function() {
-      delCookie('userName');
-      window.location.href = '/index';
-    })
+    // $('.logout').click(function() {
+    //   delCookie('userName');
+    //   window.location.href = '/';
+    // })
     //读取当前用户的名字
     $('.user').text(getCookie('userName'));
     // $.get('/currentUser', function(data){

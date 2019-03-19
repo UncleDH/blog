@@ -19,21 +19,21 @@
 
 <body class="text-center body-index">
   <form class="form-signin">
-    <img src="/public/img/矢量LOGO.svg" alt="">  
+    <img src="/public/img/矢量LOGO.svg" alt="">
     <h1>欢迎来到odd的世界</h1>
-    <input type="text" class="form-control" placeholder="用户名" name="userName" required>
+    <input type="text" class="form-control" placeholder="用户名" name="userName" required autocomplete = "off">
     <input type="password" class="form-control" placeholder="密码" name="passWord" required>
     <div class="remember">
       <label>
-        <input type="checkbox" value="rememberMe"> 记住我
+        <input type="checkbox" name="rememberMe"> 记住我
       </label>
     </div>
     <div class="register">
       <a href="/register">注册</a>
     </div>
-    <button class="btn btn-xs btn-color btn-block" id="submit" type="submit">登录</button>
+    <button class="btn btn-xs btn-color btn-block" type="submit">登录</button>
     <p>Copyright 2019 DH.</p>
-  </form> 
+  </form>
   <!-- 外部JS引用 -->
   <script src="/public/lib/jQuery/jquery-3.3.1.min.js"></script>
   <script src="/public/lib/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
@@ -55,10 +55,16 @@
         $('input[name="passWord"]').attr('placeholder', '请输入密码');
         $('input[name="passWord"]').addClass('passWorderr');
       } else {
-        $.post('/signin-user', {userName: $('input[name="userName"]').val(), passWord: md5($('input[name="passWord"]').val())}, function(data){
+        $.post('/signin-user', {userName: $('input[name="userName"]').val(), passWord: md5($('input[name="passWord"]').val())}, function(data) {
           if(data === 'true') {
             setCookie('userName', $('input[name="userName"]').val(), cookieTime);
-            window.location.href = '/';
+            // if($('input[name="rememberMe"]').is(':checked')) {
+            //   setCookie('userName', $('input[name="userName"]').val(), cookieTime);
+            // }
+            // else {
+            //   delCookie('userName');
+            // }
+            window.location.href = '/home';
           } else if(data === 'false') {
             //清空框里的数据
             $('input[name="userName"]').val('');

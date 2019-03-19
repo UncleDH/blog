@@ -20,11 +20,11 @@ connection.connect();
 
 //首页
 router.get('/', function(req, res) {
-  res.render('./html/home.html');
+  res.render('./html/index.html');
 })
 //登录
-router.get('/index', function(req, res) {
-  res.render('./html/index.html');
+router.get('/home', function(req, res) {
+  res.render('./html/home.html');
 })
 //登录检测用户名密码
 router.post('/signin-user', function(req, res) {
