@@ -18,61 +18,201 @@
 </head>
 
 <body class="text-center body-index">
-  <form class="form-signin" action="register-user" method="POST">
+  <div id="register">
+    <register></register>
+  </div>
+  <!-- <form class="form-signin" id="register">
     <img src="/public/img/矢量LOGO.svg" alt="">  
     <h1>欢迎来到odd的世界</h1>
-    <input type="text" class="form-control" placeholder="用户名" name="userName" required autofocus>
-    <input type="password" class="form-control" placeholder="密码" name="passWord" required>
+    <input type="text" class="form-control" :class="{ userNameerr:userNameerrFlag }" :placeholder="userNameplaceholder" 
+    @focus="focus('userName')" name="userName" v-model="userName"  autocomplete = "off">
+    <input type="password" class="form-control" :class="{ passWorderr:passWorderrFlag }" :placeholder="passWordplaceholder" 
+    @focus="focus('passWord')" ref="passWord" name="passWord" v-model="passWord" >
     <div class="remember">
       <label>
-        <input type="checkbox" value="rememberMe"> 记住我
+        <input type="checkbox" name="rememberMe" v-model="checkbox"> 记住我
       </label>
     </div>
     <div class="register">
       <a href="/">登录</a>
     </div>
-    <button class="btn btn-xs btn-color btn-block" type="submit">注册</button>
+    <button class="btn btn-xs btn-color btn-block" @click.prevent="submit()">注册</button>
     <p>Copyright 2019 DH.</p>
-  </form> 
+  </form>  -->
   <!-- 外部JS引用 -->
+  <script src="/public/lib/vue/vue.js"></script>
+  <script src="/public/lib/vue-resource/vue-resource.min.js"></script>
+  <script src="/public/lib/vue-router/vue-router.js"></script>
   <script src="/public/lib/jQuery/jquery-3.3.1.min.js"></script>
   <script src="/public/lib/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
   <script src="/public/lib/bootstrap拓展/js/bootstrap.offcanvas.min.js"></script>
   <script src="/public/lib/md5/md5.min.js"></script>
   <script src="/public/js/main.js"></script>
   <script>
-    //处理用户注册未填写信息与命名重复的情况
-    $('form').on('submit', function(event){
-      event.preventDefault();//方式form直接跳转
-      if($('input[name="userName"]').val() === '') {
-        $('input[name="userName"]').attr('placeholder', '请输入用户名');
-        $('input[name="userName"]').addClass('userNameerr');
-      } else if ($('input[name="passWord"]').val() === '') {
-        $('input[name="passWord"]').attr('placeholder', '请输入密码');
-        $('input[name="passWord"]').addClass('passWorderr');
-      } else {
-        $.post('register-user', {userName: $('input[name="userName"]').val(), passWord: md5($('input[name="passWord"]').val())},function(data){
-          if(data === '0'){
-            //清空框里的数据
-            $('input[name="userName"]').val('');
-            $('input[name="passWord"]').val('');
-            $('input[name="userName"]').attr('placeholder', '该用户已存在');
-            $('input[name="userName"]').addClass('userNameerr');
-          } else if(data === '1') {
-            setCookie('userName', $('input[name="userName"]').val(), cookieTime);
-            window.location.href = '/home';
+    Vue.component('register', {
+      data: function() {
+        return {
+          userName: '',
+          passWord: '',
+          userNameplaceholder: '请输入用户名',
+          userNameerrFlag: false,
+          passWordplaceholder: '请输入密码',
+          passWorderrFlag: false,
+          checkbox: false
+        }
+      },
+      template:`
+      <form class="form-signin" id="register">
+        <img src="/public/img/矢量LOGO.svg" alt="">  
+        <h1>欢迎来到odd的世界</h1>
+        <input type="text" class="form-control" :class="{ userNameerr: userNameerrFlag }" :placeholder="userNameplaceholder" 
+        @focus="focus('userName')" name="userName" v-model="userName"  autocomplete = "off">
+        <input type="password" class="form-control" :class="{ passWorderr: passWorderrFlag }" :placeholder="passWordplaceholder" 
+        @focus="focus('passWord')" ref="passWord" name="passWord" v-model="passWord" >
+        <div class="remember">
+          <label>
+            <input type="checkbox" name="rememberMe" v-model="checkbox"> 记住我
+          </label>
+        </div>
+        <div class="register">
+          <a href="/">登录</a>
+        </div>
+        <button class="btn btn-xs btn-color btn-block" @click.prevent="submit()">注册</button>
+        <p>Copyright 2019 DH.</p>
+      </form> 
+      `,
+      methods: {
+        submit: function() {
+          if(this.userName === '') {
+            this.userNameplaceholder = '用户名不能为空';
+            this.userNameerrFlag = true;
+          } else if (this.passWord === '') {
+            this.passWordplaceholder = '密码不能为空';
+            this.passWorderrFlag = true;
+          } else {
+            this.$http.post('/register-user', {userName: this.userName, passWord: md5(this.passWord)}).then(function(res) {
+              if(res.body === 'true') {
+                if(this.checkbox === true) {
+                  setCookie('userName', this.userName, cookieTime);
+                  setCookie('rememberMe', this.checkbox, cookieTime);
+                  window.location.href = '/home';
+                } else if(this.checkbox === false) {
+                  setCookie('userName', this.userName, null);
+                  setCookie('rememberMe', this.checkbox, null);
+                  window.location.href = '/home';
+                }
+              } else if(res.body === 'false') {
+                //清空框里的数据
+                this.userName = '';
+                this.passWord = '';
+                this.passWordplaceholder = '请输入密码';
+                this.passWorderrFlag = false;
+                this.userNameplaceholder = '该用户已存在';
+                this.userNameerrFlag = true;
+              }
+            })
           }
-        })
+        },
+        focus: function(type) {
+          if(type === 'userName') {
+            this.userNameplaceholder = '请输入用户名';
+            this.userNameerrFlag = false;
+          } else if(type === 'passWord') {
+            this.passWordplaceholder = '请输入密码';
+            this.passWorderrFlag = false;
+          }
+        }
       }
     })
-    $('input[name="userName"]').focus(function(){
-      $('input[name="userName"]').removeClass('userNameerr');
-      $('input[name="userName"]').attr('placeholder', '用户名');
+    var vm_register = new Vue ({
+      el: '#register',
+      // data: {
+      //   userName: '',
+      //   passWord: '',
+      //   userNameplaceholder: '请输入用户名',
+      //   userNameerrFlag: false,
+      //   passWordplaceholder: '请输入密码',
+      //   passWorderrFlag: false,
+      //   checkbox: false
+      // },
+      // methods: {
+      //   submit: function() {
+      //     console.log(this.userName);
+      //     console.log(this.passWord);
+      //     if(this.userName === '') {
+      //       this.userNameplaceholder = '用户名不能为空';
+      //       this.userNameerrFlag = true;
+      //     } else if (this.passWord === '') {
+      //       this.passWordplaceholder = '密码不能为空';
+      //       this.passWorderrFlag = true;
+      //     } else {
+      //       this.$http.post('/register-user', {userName: this.userName, passWord: md5(this.passWord)}).then(function(res) {
+      //         if(res.body === 'true') {
+      //           if(this.checkbox === true) {
+      //             setCookie('userName', this.userName, cookieTime);
+      //             setCookie('rememberMe', this.checkbox, cookieTime);
+      //             window.location.href = '/home';
+      //           } else if(this.checkbox === false) {
+      //             setCookie('userName', this.userName, null);
+      //             setCookie('rememberMe', this.checkbox, null);
+      //             window.location.href = '/home';
+      //           }
+      //         } else if(res.body === 'false') {
+      //           //清空框里的数据
+      //           this.userName = '';
+      //           this.passWord = '';
+      //           this.passWordplaceholder = '请输入密码';
+      //           this.passWorderrFlag = false;
+      //           this.userNameplaceholder = '该用户已存在';
+      //           this.userNameerrFlag = true;
+      //         }
+      //       })
+      //     }
+      //   },
+      //   focus: function(type) {
+      //     if(type === 'userName') {
+      //       this.userNameplaceholder = '请输入用户名';
+      //       this.userNameerrFlag = false;
+      //     } else if(type === 'passWord') {
+      //       this.passWordplaceholder = '请输入密码';
+      //       this.passWorderrFlag = false;
+      //     }
+      //   }
+      // }
     })
-    $('input[name="passWord"]').focus(function(){
-      $('input[name="passWord"]').removeClass('passWorderr');
-      $('input[name="passWord"]').attr('placeholder', '密码');
-    })
+
+    //处理用户注册未填写信息与命名重复的情况
+    // $('form').on('submit', function(event){
+    //   event.preventDefault();//方式form直接跳转
+    //   if($('input[name="userName"]').val() === '') {
+    //     $('input[name="userName"]').attr('placeholder', '请输入用户名');
+    //     $('input[name="userName"]').addClass('userNameerr');
+    //   } else if ($('input[name="passWord"]').val() === '') {
+    //     $('input[name="passWord"]').attr('placeholder', '请输入密码');
+    //     $('input[name="passWord"]').addClass('passWorderr');
+    //   } else {
+    //     $.post('register-user', {userName: $('input[name="userName"]').val(), passWord: md5($('input[name="passWord"]').val())},function(data){
+    //       if(data === '0'){
+    //         //清空框里的数据
+    //         $('input[name="userName"]').val('');
+    //         $('input[name="passWord"]').val('');
+    //         $('input[name="userName"]').attr('placeholder', '该用户已存在');
+    //         $('input[name="userName"]').addClass('userNameerr');
+    //       } else if(data === '1') {
+    //         setCookie('userName', $('input[name="userName"]').val(), cookieTime);
+    //         window.location.href = '/home';
+    //       }
+    //     })
+    //   }
+    // })
+    // $('input[name="userName"]').focus(function(){
+    //   $('input[name="userName"]').removeClass('userNameerr');
+    //   $('input[name="userName"]').attr('placeholder', '用户名');
+    // })
+    // $('input[name="passWord"]').focus(function(){
+    //   $('input[name="passWord"]').removeClass('passWorderr');
+    //   $('input[name="passWord"]').attr('placeholder', '密码');
+    // })
   </script>
 </body>
 </html>

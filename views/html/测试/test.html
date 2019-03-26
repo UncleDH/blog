@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="/public/img/shortcut_16.ico" type="image/x-icon" />
+  <title>odd</title>
+  <!-- Bootstrap core CSS -->
+  <link href="/public/lib/bootstrap-3.3.7/dist/css/bootstrap.css" rel="stylesheet">
+  <link href="/public/lib/bootstrap拓展/css/bootstrap.offcanvas.css" rel="stylesheet">
+  <link href="/public/lib/animate/animate.css" rel="stylesheet"><!-- 动画 -->
+  <link href="/public/css/index.css" rel="stylesheet">
+  <style>
+    /*动画*/
+    .v-enter,
+    .v-leave-to {
+      opacity: 0;
+
+    }
+
+    .v-enter-active,
+    .v-leave-active {
+      transition: opacity .6s ease;
+    }
+  </style>
+</head>
+
+<body class="text-center body-index">
+    
+  <div id='login'>
+    <transition mode="out-in">
+      <component v-bind:is="currentTabComponent"></component>
+    </transition> 
+  </div>
+  <!-- 外部JS引用 -->
+  <script src="/public/lib/vue/vue.js"></script>
+  <script src="/public/lib/vue-resource/vue-resource.min.js"></script>
+  <script src="/public/lib/vue-router/vue-router.js"></script>
+  <script src="/public/lib/jQuery/jquery-3.3.1.min.js"></script>
+  <script src="/public/lib/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+  <script src="/public/lib/bootstrap拓展/js/bootstrap.offcanvas.min.js"></script>
+  <script src="/public/lib/md5/md5.min.js"></script>
+  <script src="/public/js/main.js"></script>
+  <script>
+    Vue.component('register', {
+      data: function() {
+        return {
+          userName: '',
+          passWord: '',
+          userNameplaceholder: '请输入用户名',
+          userNameerrFlag: false,
+          passWordplaceholder: '请输入密码',
+          passWorderrFlag: false,
+          checkbox: false
+        }
+      },
+      template:`
+      <form class="form-signin" id="register">
+        <img src="/public/img/矢量LOGO.svg" alt="">  
+        <h1>欢迎来到odd的世界</h1>
+        <input type="text" class="form-control" :class="{ userNameerr: userNameerrFlag }" :placeholder="userNameplaceholder" 
+        @focus="focus('userName')" name="userName" v-model="userName"  autocomplete = "off">
+        <input type="password" class="form-control" :class="{ passWorderr: passWorderrFlag }" :placeholder="passWordplaceholder" 
+        @focus="focus('passWord')" ref="passWord" name="passWord" v-model="passWord" >
+        <div class="remember">
+          <label>
+            <input type="checkbox" name="rememberMe" v-model="checkbox"> 记住我
+          </label>
+        </div>
+        <div class="register">
+          <a href="/" @click.prevent="bounce()">登录</a>
+        </div>
+        <button class="btn btn-xs btn-color btn-block" @click.prevent="submit()">注册</button>
+        <p>Copyright 2019 DH.</p>
+      </form> 
+      `,
+      methods: {
+        bounce: function() {
+          vm_login.currentTabComponent = 'login';
+        },
+        submit: function() {
+          if(this.userName === '') {
+            this.userNameplaceholder = '用户名不能为空';
+            this.userNameerrFlag = true;
+          } else if (this.passWord === '') {
+            this.passWordplaceholder = '密码不能为空';
+            this.passWorderrFlag = true;
+          } else {
+            this.$http.post('/register-user', {userName: this.userName, passWord: md5(this.passWord)}).then(function(res) {
+              if(res.body === 'true') {
+                if(this.checkbox === true) {
+                  setCookie('userName', this.userName, cookieTime);
+                  setCookie('rememberMe', this.checkbox, cookieTime);
+                  window.location.href = '/home';
+                } else if(this.checkbox === false) {
+                  setCookie('userName', this.userName, null);
+                  setCookie('rememberMe', this.checkbox, null);
+                  window.location.href = '/home';
+                }
+              } else if(res.body === 'false') {
+                //清空框里的数据
+                this.userName = '';
+                this.passWord = '';
+                this.passWordplaceholder = '请输入密码';
+                this.passWorderrFlag = false;
+                this.userNameplaceholder = '该用户已存在';
+                this.userNameerrFlag = true;
+              }
+            })
+          }
+        },
+        focus: function(type) {
+          if(type === 'userName') {
+            this.userNameplaceholder = '请输入用户名';
+            this.userNameerrFlag = false;
+          } else if(type === 'passWord') {
+            this.passWordplaceholder = '请输入密码';
+            this.passWorderrFlag = false;
+          }
+        }
+      }
+    })
+    Vue.component('login', {
+      data: function() {
+        return {
+          userName: '',
+          passWord: '',
+          userNameplaceholder: '用户名',
+          userNameerrFlag: false,
+          passWordplaceholder: '密码',
+          passWorderrFlag: false,
+          checkbox: false
+        }
+      },
+      //props: ['q'],
+      template:`
+        <form class="form-signin" >
+        <img src="/public/img/矢量LOGO.svg" alt="">
+        <h1>欢迎来到odd的世界</h1>
+        <input type="text" class="form-control" :class="{ userNameerr: userNameerrFlag }" :placeholder="userNameplaceholder" 
+        @focus="focus('userName')" name="userName" v-model="userName"  autocomplete = "off">
+        <input type="password" class="form-control" :class="{ passWorderr:passWorderrFlag }" :placeholder="passWordplaceholder" 
+        @focus="focus('passWord')" ref="passWord" name="passWord" v-model="passWord" >
+        <div class="remember">
+            <label>
+            <input type="checkbox" name="rememberMe" v-model="checkbox"> 记住我
+            </label>
+        </div>
+        <div class="register">
+          <a href="/register" @click.prevent='bounce'>注册</a>
+        </div>
+        <button class="btn btn-xs btn-color btn-block" @click.prevent="submit()">登录</button>
+        <p>Copyright 2019 DH.</p>
+        </form>
+      `,
+      methods:{
+        bounce: function() {
+          vm_login.currentTabComponent = 'register';
+        },
+        submit: function() {
+          if(this.userName === '') {
+            this.userNameplaceholder = '请输入用户名';
+            this.userNameerrFlag = true;
+          } else if (this.passWord === '') {
+            this.passWordplaceholder = '请输入密码';
+            this.passWorderrFlag = true;
+          } else {
+            this.$http.post('/signin-user', {userName: this.userName, passWord: md5(this.passWord)}).then(function(res) {
+              if(res.body === 'true') {
+                if(this.checkbox === true) {
+                  setCookie('userName', this.userName, cookieTime);
+                  setCookie('rememberMe', this.checkbox, cookieTime);
+                  window.location.href = '/home';
+                } else if(this.checkbox === false) {
+                  setCookie('userName', this.userName, null);
+                  setCookie('rememberMe', this.checkbox, null);
+                  window.location.href = '/home';
+                }
+              } else if(res.body === 'false') {
+                //清空框里的数据
+                this.userName = '';
+                this.passWord = '';
+                this.passWordplaceholder = '密码';
+                this.passWorderrFlag = false;
+                this.userNameplaceholder = '该用户不存在或者密码错误';
+                this.userNameerrFlag = true;
+              }
+            })
+          }
+        },
+        focus: function(type) {
+          if(type === 'userName') {
+            this.userNameplaceholder = '用户名';
+            this.userNameerrFlag = false;
+          } else if(type === 'passWord') {
+            this.passWordplaceholder = '密码';
+            this.passWorderrFlag = false;
+          }
+        }
+      },
+      mounted: function() {
+        if(getCookie('userName') !== 'false') {
+          if(getCookie('rememberMe') === 'true') {
+            this.userName = getCookie('userName');
+            this.$refs.passWord.focus();//手动聚焦
+            this.checkbox = true;//记住我打钩
+          } else {
+            this.checkbox = false;
+          }
+        }
+      }
+    })
+    var vm_login = new Vue ({
+      el: '#login',
+      data: {
+        currentTabComponent: 'login'
+      }
+    })
+  </script>
+</body>
+</html>

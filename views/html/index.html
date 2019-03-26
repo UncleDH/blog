@@ -18,63 +18,220 @@
 </head>
 
 <body class="text-center body-index">
-  <form class="form-signin">
+  <div id='login'>
+    <!-- <aaa v-for="q in bbb" :q="q" :key="q.id"></aaa> -->
+    <login></login>
+  </div>
+  <!-- <form class="form-signin" >
     <img src="/public/img/矢量LOGO.svg" alt="">
     <h1>欢迎来到odd的世界</h1>
-    <input type="text" class="form-control" placeholder="用户名" name="userName" required autocomplete = "off">
-    <input type="password" class="form-control" placeholder="密码" name="passWord" required>
+    <input type="text" class="form-control" :class="{ userNameerr:userNameerrFlag }" :placeholder="userNameplaceholder" 
+    @focus="focus('userName')" name="userName" v-model="userName"  autocomplete = "off">
+    <input type="password" class="form-control" :class="{ passWorderr:passWorderrFlag }" :placeholder="passWordplaceholder" 
+    @focus="focus('passWord')" ref="passWord" name="passWord" v-model="passWord" >
     <div class="remember">
       <label>
-        <input type="checkbox" name="rememberMe"> 记住我
+        <input type="checkbox" name="rememberMe" v-model="checkbox"> 记住我
       </label>
     </div>
     <div class="register">
       <a href="/register">注册</a>
     </div>
-    <button class="btn btn-xs btn-color btn-block" type="submit">登录</button>
+    <button class="btn btn-xs btn-color btn-block" @click.prevent="submit()">登录</button>
     <p>Copyright 2019 DH.</p>
-  </form>
+  </form> -->
   <!-- 外部JS引用 -->
+  <script src="/public/lib/vue/vue.js"></script>
+  <script src="/public/lib/vue-resource/vue-resource.min.js"></script>
+  <script src="/public/lib/vue-router/vue-router.js"></script>
   <script src="/public/lib/jQuery/jquery-3.3.1.min.js"></script>
   <script src="/public/lib/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
   <script src="/public/lib/bootstrap拓展/js/bootstrap.offcanvas.min.js"></script>
   <script src="/public/lib/md5/md5.min.js"></script>
   <script src="/public/js/main.js"></script>
   <script>
-    if(getCookie('userName') !== 'false') {
-      $('input[name="userName"]').val(getCookie('userName'));
-      $('input[name="passWord"]').focus();
-    }
-    $('form').on('submit', function(event){
-      event.preventDefault();//方式form直接跳转
-      //$("form").serialize();//输出序列化表单值的结果
-      if($('input[name="userName"]').val() === '') {
-        $('input[name="userName"]').attr('placeholder', '请输入用户名');
-        $('input[name="userName"]').addClass('userNameerr');
-      } else if ($('input[name="passWord"]').val() === '') {
-        $('input[name="passWord"]').attr('placeholder', '请输入密码');
-        $('input[name="passWord"]').addClass('passWorderr');
-      } else {
-        $.post('/signin-user', {userName: $('input[name="userName"]').val(), passWord: md5($('input[name="passWord"]').val())}, function(data) {
-          if(data === 'true') {
-            setCookie('userName', $('input[name="userName"]').val(), cookieTime);
-            // if($('input[name="rememberMe"]').is(':checked')) {
-            //   setCookie('userName', $('input[name="userName"]').val(), cookieTime);
-            // }
-            // else {
-            //   delCookie('userName');
-            // }
-            window.location.href = '/home';
-          } else if(data === 'false') {
-            //清空框里的数据
-            $('input[name="userName"]').val('');
-            $('input[name="passWord"]').val('');
-            $('input[name="userName"]').attr('placeholder', '该用户不存在或者密码错误');
-            $('input[name="userName"]').addClass('passWorderr');
+    Vue.component('login', {
+      data: function() {
+        return {
+          userName: '',
+          passWord: '',
+          userNameplaceholder: '用户名',
+          userNameerrFlag: false,
+          passWordplaceholder: '密码',
+          passWorderrFlag: false,
+          checkbox: false
+        }
+      },
+      //props: ['q'],
+      template:`
+        <form class="form-signin" >
+        <img src="/public/img/矢量LOGO.svg" alt="">
+        <h1>欢迎来到odd的世界</h1>
+        <input type="text" class="form-control" :class="{ userNameerr: userNameerrFlag }" :placeholder="userNameplaceholder" 
+        @focus="focus('userName')" name="userName" v-model="userName"  autocomplete = "off">
+        <input type="password" class="form-control" :class="{ passWorderr:passWorderrFlag }" :placeholder="passWordplaceholder" 
+        @focus="focus('passWord')" ref="passWord" name="passWord" v-model="passWord" >
+        <div class="remember">
+            <label>
+            <input type="checkbox" name="rememberMe" v-model="checkbox"> 记住我
+            </label>
+        </div>
+        <div class="register">
+          <a href="/register">注册</a>
+        </div>
+        <button class="btn btn-xs btn-color btn-block" @click.prevent="submit()">登录</button>
+        <p>Copyright 2019 DH.</p>
+        </form>
+      `,
+      methods:{
+        submit: function() {
+          if(this.userName === '') {
+            this.userNameplaceholder = '请输入用户名';
+            this.userNameerrFlag = true;
+          } else if (this.passWord === '') {
+            this.passWordplaceholder = '请输入密码';
+            this.passWorderrFlag = true;
+          } else {
+            this.$http.post('/signin-user', {userName: this.userName, passWord: md5(this.passWord)}).then(function(res) {
+              if(res.body === 'true') {
+                if(this.checkbox === true) {
+                  setCookie('userName', this.userName, cookieTime);
+                  setCookie('rememberMe', this.checkbox, cookieTime);
+                  window.location.href = '/home';
+                } else if(this.checkbox === false) {
+                  setCookie('userName', this.userName, null);
+                  setCookie('rememberMe', this.checkbox, null);
+                  window.location.href = '/home';
+                }
+              } else if(res.body === 'false') {
+                //清空框里的数据
+                this.userName = '';
+                this.passWord = '';
+                this.passWordplaceholder = '密码';
+                this.passWorderrFlag = false;
+                this.userNameplaceholder = '该用户不存在或者密码错误';
+                this.userNameerrFlag = true;
+              }
+            })
           }
-        })
+        },
+        focus: function(type) {
+          if(type === 'userName') {
+            this.userNameplaceholder = '用户名';
+            this.userNameerrFlag = false;
+          } else if(type === 'passWord') {
+            this.passWordplaceholder = '密码';
+            this.passWorderrFlag = false;
+          }
+        }
+      },
+      mounted: function() {
+        if(getCookie('userName') !== 'false') {
+          if(getCookie('rememberMe') === 'true') {
+            this.userName = getCookie('userName');
+            this.$refs.passWord.focus();//手动聚焦
+            this.checkbox = true;//记住我打钩
+          } else {
+            this.checkbox = false;
+          }
+        }
       }
     })
+    var vm_login = new Vue ({
+      el: '#login',
+      // data: {
+      //   userName: '',
+      //   passWord: '',
+      //   userNameplaceholder: '用户名',
+      //   userNameerrFlag: false,
+      //   passWordplaceholder: '密码',
+      //   passWorderrFlag: false,
+      //   checkbox: false
+      // },
+      // methods: {
+      //   submit: function() {
+      //     if(this.userName === '') {
+      //       this.userNameplaceholder = '请输入用户名';
+      //       this.userNameerrFlag = true;
+      //     } else if (this.passWord === '') {
+      //       this.passWordplaceholder = '请输入密码';
+      //       this.passWorderrFlag = true;
+      //     } else {
+      //       this.$http.post('/signin-user', {userName: this.userName, passWord: md5(this.passWord)}).then(function(res) {
+      //         if(res.body === 'true') {
+      //           if(this.checkbox === true) {
+      //             setCookie('userName', this.userName, cookieTime);
+      //             setCookie('rememberMe', this.checkbox, cookieTime);
+      //             window.location.href = '/home';
+      //           } else if(this.checkbox === false) {
+      //             setCookie('userName', this.userName, null);
+      //             setCookie('rememberMe', this.checkbox, null);
+      //             window.location.href = '/home';
+      //           }
+      //         } else if(res.body === 'false') {
+      //           //清空框里的数据
+      //           this.userName = '';
+      //           this.passWord = '';
+      //           this.passWordplaceholder = '密码';
+      //           this.passWorderrFlag = false;
+      //           this.userNameplaceholder = '该用户不存在或者密码错误';
+      //           this.userNameerrFlag = true;
+      //         }
+      //       })
+      //     }
+      //   },
+      //   focus: function(type) {
+      //     if(type === 'userName') {
+      //       this.userNameplaceholder = '用户名';
+      //       this.userNameerrFlag = false;
+      //     } else if(type === 'passWord') {
+      //       this.passWordplaceholder = '密码';
+      //       this.passWorderrFlag = false;
+      //     }
+      //   }
+      // }
+    })
+
+    // if(getCookie('userName') !== 'false') {
+    //   if(getCookie('rememberMe') === 'true') {
+    //     vm_login.userName = getCookie('userName');
+    //     vm_login.$refs.passWord.focus();//手动聚焦
+    //     vm_login.checkbox = true;//记住我打钩
+    //   } else {
+    //     vm_login.checkbox = false;
+    //   }
+    // }
+
+    // $('form').on('submit', function(event){
+    //   event.preventDefault();//方式form直接跳转
+    //   //$("form").serialize();//输出序列化表单值的结果
+    //   if($('input[name="userName"]').val() === '') {
+    //     $('input[name="userName"]').attr('placeholder', '请输入用户名');
+    //     $('input[name="userName"]').addClass('userNameerr');
+    //   } else if ($('input[name="passWord"]').val() === '') {
+    //     $('input[name="passWord"]').attr('placeholder', '请输入密码');
+    //     $('input[name="passWord"]').addClass('passWorderr');
+    //   } else {
+    //     $.post('/signin-user', {userName: $('input[name="userName"]').val(), passWord: md5($('input[name="passWord"]').val())}, function(data) {
+    //       if(data === 'true') {
+    //         setCookie('userName', $('input[name="userName"]').val(), cookieTime);
+    //         // if($('input[name="rememberMe"]').is(':checked')) {
+    //         //   setCookie('userName', $('input[name="userName"]').val(), cookieTime);
+    //         // }
+    //         // else {
+    //         //   delCookie('userName');
+    //         // }
+    //         window.location.href = '/home';
+    //       } else if(data === 'false') {
+    //         //清空框里的数据
+    //         $('input[name="userName"]').val('');
+    //         $('input[name="passWord"]').val('');
+    //         $('input[name="userName"]').attr('placeholder', '该用户不存在或者密码错误');
+    //         $('input[name="userName"]').addClass('passWorderr');
+    //       }
+    //     })
+    //   }
+    // })
   </script>
 </body>
 </html>

@@ -26,3 +26,99 @@ function delCookie(name) {
   if(cval != null)
   document.cookie= name + "=" + cval+";expires=" + exdate.toGMTString();
 }
+//导航栏组件
+Vue.component('topbar', {
+  data: function() {
+    return {
+      userName: '账号<span class="caret"></span>'
+    }
+  },
+  template: `
+    <!-- 背景图片 -->
+    <div class="top body-offcanvas">
+      <div class="background">
+        <!-- 导航条 -->
+        <nav class="navbar navbar-default-dh">
+          <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle offcanvas-toggle"
+                data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas-2">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/home">
+                <img alt="Brand" src="/public/img/new1.png" style="z-index: 1;">
+              </a>
+            </div>
+            <nav class="navbar-offcanvas navbar-offcanvas-right navbar-offcanvas-touch navbar-offcanvas-fade"
+            role="navigation" id="js-bootstrap-offcanvas-2">
+                <div>
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/home">首页</a></li>
+                    <li><a href="#">归档</a></li>
+                    <li><a href="#">关于</a></li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle user" data-toggle="dropdown" role="button" aria-haspopup="true"
+                        aria-expanded="false" v-html="userName"></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="#">个人信息</a></li>
+                        <li><a href="#">修改密码</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/" class='logout'>登出</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+            </nav>
+          </div>
+        </nav><!-- 导航条 -->
+        <div class="title">
+          <h1 class="animated bounceInDown delay-1s" style="font-size:60px">oddddddd</h1>
+          <h2 class="animated bounceInDown delay-1s">odd的Blog</h2>
+        </div>
+      </div>
+    </div>
+  `,
+  created: function() {
+    if(getCookie('userName') !== 'false') {
+      this.userName = getCookie('userName') + '<span class="caret"></span>'
+    }
+  }
+})
+//底部栏组件
+Vue.component('footerbar', {
+  data: function() {
+    return {
+
+    }
+  },
+  template:`
+    <footer class="footer">
+      <div class="container">
+        <div class="col-md-6 col-md-offset-3 content-footer">
+            <a><img src="/public/img/shortcut_48.ico"></a>
+            <p>COPYRIGHT 2019 <span>DH</span>. ALL RIGHTS RESERVED.</p>
+            <p>2019.3.5</p>
+        </div>
+      </div>
+    </footer>
+  `
+})
+//导航栏实例
+var vm_topBar = new Vue ({
+  el: '#topBar',
+  // data: {
+  //   userName: '账号<span class="caret"></span>'
+  // },
+  // created: function() {
+  //   if(getCookie('userName') !== 'false') {
+  //     this.userName = getCookie('userName') + '<span class="caret"></span>'
+  //   }
+  // }
+})
+//底部栏实例
+var vm_footer = new Vue ({
+  el: '#footer',
+})

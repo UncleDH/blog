@@ -2,9 +2,10 @@ var express = require('express');
 var bodyParser = require('body-parser');//引入body-parser，方便接受post内容
 var router = require('./router');//引入路由模块 自己写的
 var session = require('express-session');
+var template = require('art-template');
 
 var app = express();
-
+template.defaults.rules[1].test = /<<([@#]?)[ \t]*(\/?)([\w\W]*?)[ \t]*>>/;//把art-template标准界定符{{}} 改成<<>>防止与vue冲突
 app.engine('html', require('express-art-template'));//render 识别html后缀
 //配置body-parse  配置后req会多一个body属性来获取POST请求体数据（对象形式输出）
 app.use(bodyParser.urlencoded({ extended: false }));

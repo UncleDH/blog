@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="/public/img/shortcut_16.ico" type="image/x-icon" />
+  <title>odd</title>
+  <!-- Bootstrap core CSS -->
+  <link href="/public/lib/bootstrap-3.3.7/dist/css/bootstrap.css" rel="stylesheet">
+  <link href="/public/lib/bootstrap拓展/css/bootstrap.offcanvas.css" rel="stylesheet">
+  <link href="/public/lib/animate/animate.css" rel="stylesheet"><!-- 动画 -->
+  <link href="/public/css/index.css" rel="stylesheet">
+</head>
+
+<body class="text-center body-index">
+    
+  <div id='app'>
+    <input type="text" v-model="firstname"> +
+    <input type="text" v-model="lastname"> =
+    <input type="text" v-model="fullname">
+  </div>
+  <!-- 外部JS引用 -->
+  <script src="/public/lib/vue/vue.js"></script>
+  <script src="/public/lib/vue-resource/vue-resource.min.js"></script>
+  <script src="/public/lib/vue-router/vue-router.js"></script>
+  <script src="/public/lib/jQuery/jquery-3.3.1.min.js"></script>
+  <script src="/public/lib/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+  <script src="/public/lib/bootstrap拓展/js/bootstrap.offcanvas.min.js"></script>
+  <script src="/public/lib/md5/md5.min.js"></script>
+  <script src="/public/js/main.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        firstname: '1',
+        lastname: '',
+        fullname: this.firstname + this.lastname + ''
+      }
+    })
+  </script>
+  </body>
+</html>

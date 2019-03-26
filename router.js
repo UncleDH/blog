@@ -24,7 +24,12 @@ router.get('/', function(req, res) {
 })
 //登录
 router.get('/home', function(req, res) {
-  res.render('./html/home.html');
+  res.render('./html/home.html', {
+    user: {
+        name: 'aui',
+        tags: ['art', 'template', 'nodejs']
+    }
+  });
 })
 //登录检测用户名密码
 router.post('/signin-user', function(req, res) {
@@ -61,14 +66,14 @@ router.post('/register-user', function(req, res){
     }
     //判断是否存在这个用户
     if(results[0].num) {
-      res.send('0');
+      res.send('false');
     } else {
       connection.query('INSERT INTO USERS VALUES (null, "' + req.body.userName + '", "' + md5(req.body.passWord) + '", null, null)', function (error, results, fields) {
         if(error) {
           throw error;
         }
         console.log('The solution is: ', results);
-        res.send('1');
+        res.send('true');
       });
     }
   });
@@ -119,5 +124,13 @@ router.get('/md', function(req, res){
 router.get('/upload', function(req, res){
   res.render('./html/uploadPaper.html');
 })
+
+router.get('/test', function(req, res){
+  res.render('./html/测试/test.html');
+})
+router.get('/2', function(req, res){
+  res.render('./html/测试/2.html');
+})
+
 //导出路由
 module.exports = router;
